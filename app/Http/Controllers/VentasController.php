@@ -41,7 +41,15 @@ class VentasController extends Controller
             'descuento' => 'required'
         ]);
         $venta = Venta::create($request->all());
-
+        $detalle = new Detalle();
+        $detalle->venta_id = $venta->id;
+        $detalle->producto_id = $request->stock;
+        $detalle->cliente_id = $request->disponible;
+        $detalle->cantidad = $request->cantidad;
+        $detalle->subtotal = 1;
+        $detalle->created_at = Carbon::now();
+        $detalle->updated_at = Carbon::now();
+        $detalle->save ();
 
         return redirect()->route('ventas.index')
             ->with('success','La venta fue creada correctamente');
