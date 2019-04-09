@@ -9,17 +9,32 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Ventas</div>
+                    <div class="card-header">Listado de Ventas en Detalle</div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Fecha</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($detalles as $detalle)
+                            <tr>
+                                <td><a>{{$detalle->id}}</a> </td>
+                                <td><a>{{$detalle->created_at->format('d-m-Y')}}</a></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                     <div class="card-body">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
                         @endif
-                            <a href="{{ route('ventas.create') }}" class="btn btn-primary">Ingresar Venta</a>
-                            <a href="{{ route('detalles.index') }}" class="btn btn-success">Ver Detalle</a>
                     </div>
                 </div>
+                {{ $detalles->links() }}
             </div>
             <div class="list-group">
                 <a href="/clientes" class="list-group-item list-group-item-action">Clientes</a>

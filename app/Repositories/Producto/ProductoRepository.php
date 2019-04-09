@@ -16,18 +16,18 @@ class ProductoRepository implements ProductoInterface
     public function stock ()
     {
         $listado_stock = Producto::where('cantidad','>',0)->get();
-        $stock = ($listado_stock->pluck('nombre'));
+        $stock = ($listado_stock->pluck('nombre','id'));
         return $stock;
     }
     public function cantidad_numero ()
     {
         $listado_stock = Producto::where('cantidad','>',0)->get();
-        $stock = ($listado_stock->pluck('cantidad')->first());
+        $stock = ($listado_stock->pluck('cantidad','id')->first());
         return $stock;
     }
     public function iva(){
         $obtener_iva = Iva::all();
-        $iva = ($obtener_iva->pluck('iva'));
+        $iva = ($obtener_iva->pluck('iva','id'));
         return $iva;
     }
     public function precio(){

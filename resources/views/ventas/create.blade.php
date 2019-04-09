@@ -25,7 +25,7 @@
                         <strong>Seleccione Producto Disponible :</strong>
                         {!! Form::select('stock', $stock ) !!}
                         <strong>Seleccione Cantidad :</strong>
-                        {!! Form::input('cantidad', 'amount', $cantidad, ['class' => 'form-control']) !!}
+                        {!! Form::input('cantidad', 'cantidad', $cantidad, ['class' => 'form-control']) !!}
                         <strong>Seleccione IVA :</strong>
                             {!! Form::select('iva_id', $iva_id) !!}
                         <strong>Seleccione Descuento :</strong>

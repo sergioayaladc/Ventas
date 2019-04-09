@@ -16,7 +16,7 @@ class ClienteRepository implements ClienteInterface
     public function estado ()
     {
         $clientes_estados = Cliente::where('estado','>',0)->get();
-        $estado = ($clientes_estados->pluck('nombre'));
+        $estado = ($clientes_estados->pluck('nombre','id'));
         return $estado;
     }
 }
