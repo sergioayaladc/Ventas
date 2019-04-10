@@ -10,7 +10,7 @@ class ClienteRepository implements ClienteInterface
 
     public function listar ()
     {
-        return Cliente::orderBy ('id','DESC')->paginate (5);
+        return Cliente::orderBy ('id','DESC')->paginate (10);
     }
 
     public function estado ()

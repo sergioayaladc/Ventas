@@ -11,7 +11,7 @@ class ProductoRepository implements ProductoInterface
 
     public function listar ()
     {
-        return Producto::orderBy ('cantidad','DESC')->paginate (5);
+        return Producto::orderBy ('cantidad','DESC')->paginate (10);
     }
     public function stock ()
     {
@@ -19,6 +19,9 @@ class ProductoRepository implements ProductoInterface
         $stock = ($listado_stock->pluck('nombre','id'));
         return $stock;
     }
+
+
+
     public function cantidad_numero ()
     {
         $listado_stock = Producto::where('cantidad','>',0)->get();
@@ -27,20 +30,17 @@ class ProductoRepository implements ProductoInterface
     }
     public function iva(){
         $obtener_iva = Iva::all();
-        $iva = ($obtener_iva->pluck('iva','id'));
+        $iva = ($obtener_iva->pluck('iva','iva'));
         return $iva;
     }
-    public function precio(){
-        $listado_precio = Producto::all();
-        $precio = ($listado_precio->pluck('precio')->first());
-        return $precio;
-    }
-    public function suma_iva(){
-        $obtener_iva = Iva::all();
-        $iva = ($obtener_iva->pluck('iva'));
+    public function precio ()
+    {
         $listado_stock = Producto::where('cantidad','>',0)->get();
-        $stock = ($listado_stock->pluck('cantidad')->first());
-
-        return $total = 0.19 * 100;
+        $stock = ($listado_stock->pluck('nombre','precio'));
+        return $stock;
     }
+    public function producto_actualizar(){
+
+    }
+
 }

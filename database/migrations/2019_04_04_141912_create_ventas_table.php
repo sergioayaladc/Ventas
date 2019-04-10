@@ -15,11 +15,9 @@ class CreateVentasTable extends Migration
     {
         Schema::create('ventas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('fecha')->nullable ();
-            $table->unsignedBigInteger ('iva_id');
-            $table->foreign('iva_id')->references('id')->on('iva');
+            $table->decimal  ('iva_id',2,2);
             $table->integer  ('descuento');
-            $table->float ('total');
+            $table->float ('total',2,2)->nullable ();
             $table->timestamps();
         });
     }

@@ -10,6 +10,9 @@
             </ul>
         </div>
     @endif
+    @if (Session::has('info'))
+        <div class="alert alert-info">{{ Session::get('info') }} {{ $cantidad }}</div>
+    @endif
     {!! Form::open(array('route' => 'ventas.store','method'=>'POST')) !!}
     <div class="container">
         <div class="row justify-content-center">
@@ -31,7 +34,11 @@
                         <strong>Seleccione Descuento :</strong>
                         {!! Form::number('descuento', null, array('placeholder' => 'Es Obligatorio','class' => 'form-control', 'upper')) !!}
                         </tbody>
-                        {!! Form::number('total', null, array('placeholder' => 'Es Obligatorio','class' => 'form-control', 'upper')) !!}
+                        <form id="form" name="form" method="post">
+                            <a href="#" onclick="AgregarCampos();">Agregar Otro Producto</a>
+                            <div id="campos">
+                            </div>
+                        </form>
                         {!! Form::submit('Guardar Venta',['class' => 'btn btn-primary']) !!}
                     </table>
                     <div class="card-body">
@@ -51,3 +58,27 @@
         </div>
     </div>
 @endsection
+<script type="text/javascript">
+    var nextinput = 0;
+    function AgregarCampos(){
+        nextinput++;
+        campo = '<li id="rut'+nextinput+'"> <strong>Seleccione Cliente :{!! Form::select('disponible', $disponible ) !!}</strong><br>      <strong>Seleccione Producto Disponible :</strong>' +
+            '                        {!! Form::select('stock', $stock ) !!} <br><strong>Seleccione Cantidad :</strong>' +
+            '                        {!! Form::input('cantidad', 'cantidad', $cantidad, ['class' => 'form-control']) !!}<strong>Seleccione IVA :</strong>' +
+            '                            {!! Form::select('iva_id', $iva_id) !!}  <br><strong>Seleccione Descuento :</strong>' +
+            '                        {!! Form::number('descuento', null, array('placeholder' => 'Es Obligatorio','class' => 'form-control', 'upper')) !!}' +
+            '                        </li>';
+        $("#campos").append(campo);
+    }
+    function enviarDatos(nextinput) {
+        var parametros = {"nextinput": nextinput};
+        $.ajax({
+            data: parametros,
+
+        type: 'post',
+        success: function(response) {
+            $("#muestra").html(response);
+        }
+    });
+    }
+</script>

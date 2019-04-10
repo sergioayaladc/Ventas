@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Detalle;
+use App\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Repositories\Cliente\ClienteInterface;
@@ -27,34 +28,44 @@ class VentasController extends Controller
 
     }
 
-    public function create(){
+    public function create(Request $request){
         $disponible = $this->clienteRepo->estado ();
         $stock = $this->productoRepo->stock ();
         $cantidad = $this->productoRepo->cantidad_numero ();
         $iva_id = $this->productoRepo->iva ();
-        return view('ventas.create',compact('disponible','stock','cantidad','iva_id','total'));
+        $precio = $this->productoRepo->precio ();
+
+
+        return view('ventas.create',compact('disponible','stock','cantidad','iva_id','precio'));
     }
     public function store(Request $request)
     {
-
+        //dd($request->all ());
         request()->validate([
-            'descuento' => 'required'
+            'descuento' => 'required',
+            'cantidad' => 'required|min:0'
         ]);
         $venta = Venta::create($request->all());
+        $producto = Producto::find($request->stock);
         $detalle = new Detalle();
         $detalle->venta_id = $venta->id;
         $detalle->producto_id = $request->stock;
         $detalle->cliente_id = $request->disponible;
         $detalle->cantidad = $request->cantidad;
-        $detalle->subtotal = 1;
+        if($this->productoRepo->cantidad_numero () >= $detalle->cantidad){
+            $producto->decrement('cantidad', $detalle->cantidad);
+    }else{
+            return redirect()->route('ventas.create')
+                ->with('info','No tiene Stock suficiente, la cantidad maxima es: ');
+        }
+        $detalle->subtotal =  $producto->precio * $detalle->cantidad;
         $detalle->created_at = Carbon::now();
         $detalle->updated_at = Carbon::now();
         $detalle->save ();
 
+
         return redirect()->route('ventas.index')
             ->with('success','La venta fue creada correctamente');
     }
-
-
 
 }

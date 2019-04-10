@@ -15,7 +15,7 @@ class CreateIvaTable extends Migration
     {
         Schema::create('iva', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->float ('iva',8,3);
+            $table->decimal ('iva',2,2);
             $table->timestamps();
         });
     }
