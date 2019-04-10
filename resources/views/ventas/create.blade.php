@@ -11,7 +11,7 @@
         </div>
     @endif
     @if (Session::has('info'))
-        <div class="alert alert-info">{{ Session::get('info') }} {{ $cantidad }}</div>
+        <div class="alert alert-info">{{ Session::get('info') }}</div>
     @endif
     {!! Form::open(array('route' => 'ventas.store','method'=>'POST')) !!}
     <div class="container">
@@ -28,7 +28,7 @@
                         <strong>Seleccione Producto Disponible :</strong>
                         {!! Form::select('stock', $stock ) !!}
                         <strong>Seleccione Cantidad :</strong>
-                        {!! Form::input('cantidad', 'cantidad', $cantidad, ['class' => 'form-control']) !!}
+                        {!! Form::number('cantidad', null, array('placeholder' => 'Es Obligatorio','class' => 'form-control', 'upper')) !!}
                         <strong>Seleccione IVA :</strong>
                             {!! Form::select('iva_id', $iva_id) !!}
                         <strong>Seleccione Descuento :</strong>

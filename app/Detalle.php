@@ -1,6 +1,7 @@
 <?php
 namespace App;
 use Illuminate\Database\Eloquent\Model;
+
 use DB;
 class Detalle extends Model
 {
@@ -19,6 +20,12 @@ class Detalle extends Model
         'updated_at'
     ];
     public function ventas(){
-        return $this->hasMany(Venta::class,'id');
+        return $this->hasMany(Venta::class);
+    }
+    public function productos(){
+        return $this->belongsTo(Producto::class);
+    }
+    public function clientes(){
+        return $this->belongsTo(Cliente::class);
     }
 }

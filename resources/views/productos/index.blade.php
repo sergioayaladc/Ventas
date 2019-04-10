@@ -13,7 +13,6 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Cantidad</th>
-                            <th scope="col">Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -21,14 +20,8 @@
                             <tr>
                                 <td><a>{{$producto->id}}</a> </td>
                                 <td><a>{{$producto->nombre}}</a> </td>
-                                <td><a>{{$producto->precio}}</a> </td>
-                                <td><a>{{$producto->cantidad}}</a> </td>
-                                <td>{!! Form::open(['method' => 'GET', 'route' => ['productos.edit', $producto->id]]) !!}
-                                    {!! Form::submit('Editar',['class' => 'btn btn-primary']) !!}
-                                    {!! Form::open(['method' => 'DELETE','route' => ['productos.destroy', $producto->id],'style'=>'display:inline']) !!}
-                                    {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
-                                    {!! Form::close() !!}</td>
-                                </td>
+                                <td><a>{{number_format($producto->precio)}}</a> </td>
+                                <td><a>{{number_format($producto->cantidad)}}</a> </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -41,8 +34,7 @@
                         @endif
                     </div>
                 </div>
-                <button type="button" class="btn btn-success btn-lg btn-block">Agregar Producto</button>
-            </div>
+                <a href="{{ route('productos.create') }}" class="btn btn-success btn-lg btn-block">Agregar Producto</a>            </div>
             <div class="list-group">
                 <a href="/clientes" class="list-group-item list-group-item-action">Clientes</a>
                 <a href="/productos" class="list-group-item list-group-item-action active">Productos</a>

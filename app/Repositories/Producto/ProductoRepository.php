@@ -39,8 +39,5 @@ class ProductoRepository implements ProductoInterface
         $stock = ($listado_stock->pluck('nombre','precio'));
         return $stock;
     }
-    public function producto_actualizar(){
-
-    }
 
 }

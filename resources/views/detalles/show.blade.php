@@ -18,9 +18,41 @@
                                     <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group">
                                            <strong>ID de la venta:</strong>
-                                                {{ $detalle->id}}
+                                                {{ $venta->id}}
                                         </div>
                                     </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Comprado por el Cliente:</strong>
+                                        {{ $cliente->nombre}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Producto:</strong>
+                                        {{ $producto->nombre}}
+                                        <strong>Precio:</strong>
+                                        {{ number_format($producto->precio)}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Cantidad:</strong>
+                                        {{ $detalle->cantidad}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Subtotal:</strong>
+                                        {{ number_format($detalle->subtotal)}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Fecha:</strong>
+                                        {{$detalle->created_at->format('d-m-y H:i:s')}}
+                                    </div>
+                                </div>
                             </tr>
                         </tbody>
                     </table>

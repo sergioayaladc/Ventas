@@ -13,7 +13,7 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">ID Detalle</th>
                             <th scope="col">Fecha</th>
                             <th scope="col">Operación</th>
                         </tr>
@@ -25,8 +25,6 @@
                                 <td><a>{{$detalle->created_at->format('d-m-Y')}}</a></td>
                                 <td>{!! Form::open(['method' => 'GET', 'route' => ['detalles.show', $detalle->id]]) !!}
                                     {!! Form::submit('Ver',['class' => 'btn btn-primary']) !!}
-                                    {!! Form::open(['method' => 'DELETE','route' => ['detalles.destroy', $detalle->id],'style'=>'display:inline']) !!}
-                                    {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
                                     {!! Form::close() !!}</td>
                             </tr>
                         @endforeach

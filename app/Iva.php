@@ -15,6 +15,6 @@ class Iva extends Model
         'updated_at'
     ];
     public function ventas(){
-        return $this->hasMany(Venta::class,'id');
+        return $this->hasMany(Venta::class);
     }
 }

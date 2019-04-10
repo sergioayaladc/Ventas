@@ -20,10 +20,15 @@ class Venta extends Model
     ];
 
     public function iva(){
-        return $this->belongsTo(Iva::class,'id');
+        return $this->belongsTo(Iva::class);
     }
-    public function  detalle(){
-        return $this->belongsTo(Detalle::class,'id');
+    public function  detalles(){
+        return $this->belongsTo(Detalle::class);
     }
-
+    public function productos(){
+        return $this->belongsTo(Producto::class);
+    }
+    public function clientes(){
+        return $this->belongsTo(Cliente::class);
+    }
 }

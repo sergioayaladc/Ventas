@@ -8,5 +8,4 @@ interface ProductoInterface {
     public function cantidad_numero();
     public function iva();
     public function precio();
-    public function producto_actualizar();
 }
