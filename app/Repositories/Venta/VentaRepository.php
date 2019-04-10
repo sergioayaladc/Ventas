@@ -4,7 +4,6 @@ namespace App\Repositories\Venta;
 
 use App\Repositories\Venta\VentaInterface as VentaInterface;
 use App\Detalle;
-use App\Cliente;
 
 class VentaRepository implements VentaInterface
 {

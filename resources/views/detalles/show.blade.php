@@ -9,7 +9,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Listado de Ventas en Detalle</div>
+                    <div class="card-header">Detalle de la venta</div>
                     <table class="table">
                         <thead>
                         </thead>
@@ -21,6 +21,12 @@
                                                 {{ $venta->id}}
                                         </div>
                                     </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>ID del detalle venta:</strong>
+                                        {{ $detalle->id}}
+                                    </div>
+                                </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <strong>Comprado por el Cliente:</strong>
@@ -43,8 +49,26 @@
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
+                                        <strong>Descuento:</strong>
+                                        {{ number_format($venta->descuento)}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
                                         <strong>Subtotal:</strong>
                                         {{ number_format($detalle->subtotal)}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>IVA:</strong>
+                                        {{ number_format($detalle->subtotal * $venta->iva_id)}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Total:</strong>
+                                        {{ number_format($venta->total)}}
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">

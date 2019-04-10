@@ -62,23 +62,12 @@
     var nextinput = 0;
     function AgregarCampos(){
         nextinput++;
-        campo = '<li id="rut'+nextinput+'"> <strong>Seleccione Cliente :{!! Form::select('disponible', $disponible ) !!}</strong><br>      <strong>Seleccione Producto Disponible :</strong>' +
+        campo = '<li> <strong>Seleccione Cliente :{!! Form::select('disponible', $disponible ) !!}</strong><br>      <strong>Seleccione Producto Disponible :</strong>' +
             '                        {!! Form::select('stock', $stock ) !!} <br><strong>Seleccione Cantidad :</strong>' +
-            '                        {!! Form::input('cantidad', 'cantidad', $cantidad, ['class' => 'form-control']) !!}<strong>Seleccione IVA :</strong>' +
+            '                    {!! Form::number('cantidad', null, array('placeholder' => 'Es Obligatorio','class' => 'form-control', 'upper')) !!}<strong>Seleccione IVA :</strong>' +
             '                            {!! Form::select('iva_id', $iva_id) !!}  <br><strong>Seleccione Descuento :</strong>' +
             '                        {!! Form::number('descuento', null, array('placeholder' => 'Es Obligatorio','class' => 'form-control', 'upper')) !!}' +
             '                        </li>';
         $("#campos").append(campo);
-    }
-    function enviarDatos(nextinput) {
-        var parametros = {"nextinput": nextinput};
-        $.ajax({
-            data: parametros,
-
-        type: 'post',
-        success: function(response) {
-            $("#muestra").html(response);
-        }
-    });
     }
 </script>

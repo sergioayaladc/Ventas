@@ -44,11 +44,12 @@ class VentasController extends Controller
         $iva_id = $this->productoRepo->iva ();
         $precio = $this->productoRepo->precio ();
 
-        return view ('ventas.create',compact ('disponible','stock','cantidad','iva_id','precio'));
+        return view ('ventas.create',compact ('disponible','stock','cantidad','iva_id','precio','total'));
     }
 
     public function store (Request $request)
     {
+        //dd($request->all());
         request ()->validate ([
             'descuento' => 'required',
             'cantidad' => 'required|min:0',
@@ -66,9 +67,12 @@ class VentasController extends Controller
         } else {
             return redirect ()->route ('ventas.create')->with ('info','No tiene Stock suficiente');
         }
-        $detalle->subtotal = $producto->precio * $detalle->cantidad;
+        $detalle->subtotal = $producto->precio * $detalle->cantidad - $request->descuento;
+        $total_iva =  ($request->iva_id) * ($detalle->subtotal);
         $detalle->created_at = Carbon::now ();
         $detalle->updated_at = Carbon::now ();
+        $venta->total = $total_iva + ($detalle->subtotal);
+        $venta->save();
         $detalle->save ();
 
         return redirect ()->route ('ventas.index')->with ('success','La venta fue creada correctamente');
