@@ -8,4 +8,5 @@ interface ProductoInterface {
     public function cantidad_numero();
     public function iva();
     public function precio();
+    public function buscar_producto($request);
 }

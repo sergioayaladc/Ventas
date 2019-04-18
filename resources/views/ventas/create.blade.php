@@ -22,17 +22,35 @@
                     <table class="table">
                         <tbody>
                         <strong>Seleccione Cliente :</strong>
-                        {!! Form::select('disponible', $disponible ) !!}
+                        <select name="disponible">
+                        @foreach ($disponible as $disponibles)
+                            <option value="{{$disponibles->id}}">
+                                {{$disponibles->nombre}}
+                            </option>
+                        @endforeach
+                        </select>
                         </tbody>
                         <tbody>
                         <strong>Seleccione Producto Disponible :</strong>
-                        {!! Form::select('stock', $stock ) !!}
+                        <select name="producto[id][]">
+                            @foreach ($stock as $stocks)
+                                <option value="{{$stocks->id}}">
+                                    {{$stocks->nombre}}
+                                </option>
+                            @endforeach
+                        </select>
                         <strong>Seleccione Cantidad :</strong>
-                        {!! Form::number('cantidad', null, array('placeholder' => 'Es Obligatorio','class' => 'form-control', 'upper')) !!}
+                        <input type="number" name="producto[cantidad][]">
                         <strong>Seleccione IVA :</strong>
-                            {!! Form::select('iva_id', $iva_id) !!}
+                        <select name="iva_id">
+                        @foreach ($iva_id as $ivas)
+                            <option value="{{$ivas->iva}}">
+                                {{$ivas->iva}}
+                            </option>
+                        @endforeach
+                        </select>
                         <strong>Seleccione Descuento :</strong>
-                        {!! Form::number('descuento', null, array('placeholder' => 'Es Obligatorio','class' => 'form-control', 'upper')) !!}
+                        <input type="number" name="descuento">
                         </tbody>
                         <form id="form" name="form" method="post">
                             <a href="#" onclick="AgregarCampos();">Agregar Otro Producto</a>
@@ -59,15 +77,17 @@
     </div>
 @endsection
 <script type="text/javascript">
-    var nextinput = 0;
-    function AgregarCampos(){
-        nextinput++;
-        campo = '<li> <strong>Seleccione Cliente :{!! Form::select('disponible', $disponible ) !!}</strong><br>      <strong>Seleccione Producto Disponible :</strong>' +
-            '                        {!! Form::select('stock', $stock ) !!} <br><strong>Seleccione Cantidad :</strong>' +
-            '                    {!! Form::number('cantidad', null, array('placeholder' => 'Es Obligatorio','class' => 'form-control', 'upper')) !!}<strong>Seleccione IVA :</strong>' +
-            '                            {!! Form::select('iva_id', $iva_id) !!}  <br><strong>Seleccione Descuento :</strong>' +
-            '                        {!! Form::number('descuento', null, array('placeholder' => 'Es Obligatorio','class' => 'form-control', 'upper')) !!}' +
-            '                        </li>';
-        $("#campos").append(campo);
+   function AgregarCampos() {
+       campo =
+           '<li class="saved">' +
+                '<input type="number" name="producto[\cantidad\][]">'+
+                '<select name="producto[\id\][]">';
+                @foreach ($stock as $stocks)
+                    console.log({{$stocks->id}});
+                    campo += '<option value="' + {{$stocks->id}} + '">' + "{{$stocks->nombre}}" + '</option>';
+                @endforeach
+       campo +=  '</select>'+
+           '</li>';
+       $("#campos").append(campo);
     }
 </script>

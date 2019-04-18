@@ -16,7 +16,7 @@ class ProductoRepository implements ProductoInterface
     public function stock ()
     {
         $listado_stock = Producto::where('cantidad','>',0)->get();
-        $stock = ($listado_stock->pluck('nombre','id'));
+        $stock = ($listado_stock);
         return $stock;
     }
 
@@ -30,7 +30,7 @@ class ProductoRepository implements ProductoInterface
     }
     public function iva(){
         $obtener_iva = Iva::all();
-        $iva = ($obtener_iva->pluck('iva','iva'));
+        $iva = ($obtener_iva);
         return $iva;
     }
     public function precio ()
@@ -38,6 +38,11 @@ class ProductoRepository implements ProductoInterface
         $listado_stock = Producto::where('cantidad','>',0)->get();
         $stock = ($listado_stock->pluck('nombre','precio'));
         return $stock;
+    }
+
+    public function buscar_producto($request){
+        $producto = Producto::find ($request);
+        return $producto;
     }
 
 }

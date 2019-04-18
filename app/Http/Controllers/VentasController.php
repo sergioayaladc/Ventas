@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Detalle;
 use App\Producto;
+use App\Repositories\Venta\VentaRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Repositories\Cliente\ClienteInterface;
@@ -18,10 +19,13 @@ class VentasController extends Controller
 
     private $clienteRepo;
 
-    public function __construct (ProductoInterface $productoRepo,ClienteInterface $clienteRepo)
+    private $ventaRepo;
+
+    public function __construct (ProductoInterface $productoRepo,ClienteInterface $clienteRepo, VentaRepository $ventaRepo)
     {
         $this->productoRepo = $productoRepo;
         $this->clienteRepo = $clienteRepo;
+        $this->ventaRepo = $ventaRepo;
         $this->middleware ('auth');
     }
 
@@ -49,32 +53,16 @@ class VentasController extends Controller
 
     public function store (Request $request)
     {
-        //dd($request->all());
-        request ()->validate ([
-            'descuento' => 'required',
-            'cantidad' => 'required|min:0',
-        ]);
-        $venta = Venta::create ($request->all ());
-        $producto = Producto::find ($request->stock);
-        $cantidad_producto = $producto->cantidad;
-        $detalle = new Detalle();
-        $detalle->venta_id = $venta->id;
-        $detalle->producto_id = $request->stock;
-        $detalle->cliente_id = $request->disponible;
-        $detalle->cantidad = $request->cantidad;
-        if($cantidad_producto >= $detalle->cantidad) {
-            $producto->decrement ('cantidad',$detalle->cantidad);
-        } else {
+        //request ()->validate ([
+        //    'descuento' => 'required',
+        //    'cantidad' => 'required|min:0',
+        //]);
+        $resultado = $this->ventaRepo->agregar_venta ($request);
+
+        if($resultado == true){
+            return redirect ()->route ('ventas.index')->with ('success','La venta fue creada correctamente');
+        }else{
             return redirect ()->route ('ventas.create')->with ('info','No tiene Stock suficiente');
         }
-        $detalle->subtotal = $producto->precio * $detalle->cantidad - $request->descuento;
-        $total_iva =  ($request->iva_id) * ($detalle->subtotal);
-        $detalle->created_at = Carbon::now ();
-        $detalle->updated_at = Carbon::now ();
-        $venta->total = $total_iva + ($detalle->subtotal);
-        $venta->save();
-        $detalle->save ();
-
-        return redirect ()->route ('ventas.index')->with ('success','La venta fue creada correctamente');
     }
 }

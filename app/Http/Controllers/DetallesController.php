@@ -45,7 +45,8 @@ class DetallesController extends Controller
         $venta = Venta::where ('id',$detalle->venta_id)->first ();
         $cliente = Cliente::where ('id',$detalle->cliente_id)->first ();
         $producto = Producto::where ('id',$detalle->producto_id)->first ();
+        $productos = Producto::all();
 
-        return view ('detalles.show',compact ('detalle','cliente','producto','venta'));
+        return view ('detalles.show',compact ('detalle','cliente','producto','venta','productos'));
     }
 }

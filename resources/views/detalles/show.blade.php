@@ -35,10 +35,12 @@
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <strong>Producto:</strong>
-                                        {{ $producto->nombre}}
-                                        <strong>Precio:</strong>
-                                        {{ number_format($producto->precio)}}
+                                        @foreach ($productos as $producto)
+                                            <strong>Producto:</strong>
+                                            <option>
+                                                {{$producto->nombre}}
+                                            </option>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">

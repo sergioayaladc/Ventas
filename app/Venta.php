@@ -23,7 +23,7 @@ class Venta extends Model
         return $this->belongsTo(Iva::class);
     }
     public function  detalles(){
-        return $this->belongsTo(Detalle::class);
+        return $this->hasMany(Detalle::class);
     }
     public function productos(){
         return $this->belongsTo(Producto::class);
