@@ -38,7 +38,7 @@
                                         @foreach ($productos as $producto)
                                             <strong>Producto:</strong>
                                             <option>
-                                                {{$producto->nombre}}
+                                                id:{{$producto->id}}/cantidad:{{$producto->cantidad}}/subtotal:{{$producto->subtotal}}
                                             </option>
                                         @endforeach
                                     </div>
@@ -46,7 +46,7 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <strong>Cantidad:</strong>
-                                        {{ $detalle->cantidad}}
+                                        {{ $cantidad}}
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">

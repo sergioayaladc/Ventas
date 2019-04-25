@@ -19,6 +19,7 @@ class VentaRepository implements VentaInterface
     {
         return Detalle::orderBy ('id','DESC')->paginate (10);
     }
+
     public function agregar_venta($request){
 
         $ventas = $request->all();

@@ -17,7 +17,10 @@ return [
     |            "memcached", "redis", "dynamodb", "array"
     |
     */
-
+    'api' => [
+        'driver' => 'passport',
+        'provider' => 'users',
+    ],
     'driver' => env('SESSION_DRIVER', 'file'),
 
     /*

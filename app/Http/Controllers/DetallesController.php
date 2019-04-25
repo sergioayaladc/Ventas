@@ -42,11 +42,12 @@ class DetallesController extends Controller
     public function show ($id)
     {
         $detalle = Detalle::findOrFail ($id);
+        $numero_detalle = $detalle->venta_id;
         $venta = Venta::where ('id',$detalle->venta_id)->first ();
         $cliente = Cliente::where ('id',$detalle->cliente_id)->first ();
         $producto = Producto::where ('id',$detalle->producto_id)->first ();
-        $productos = Producto::all();
-
-        return view ('detalles.show',compact ('detalle','cliente','producto','venta','productos'));
+        $productos = $this->productoRepo->detalle_producto ($numero_detalle);
+        $cantidad = $this->productoRepo->cantidad_numero ($numero_detalle);
+        return view ('detalles.show',compact ('detalle','cliente','producto','venta','productos','cantidad'));
     }
 }

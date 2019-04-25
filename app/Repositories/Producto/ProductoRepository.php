@@ -4,6 +4,8 @@ namespace App\Repositories\Producto;
 
 use App\Repositories\Producto\ProductoInterface as ProductoInterface;
 use App\Producto;
+use App\Venta;
+use App\Detalle;
 use App\Iva;
 
 class ProductoRepository implements ProductoInterface
@@ -44,5 +46,16 @@ class ProductoRepository implements ProductoInterface
         $producto = Producto::find ($request);
         return $producto;
     }
-
+    public function detalle_producto($request){
+        $detalle_producto = Detalle::where('venta_id',$request)->get();
+        $detalle_producto->pluck('id','cantidad','subtotal');
+        //dd($detalle_producto);
+        return $detalle_producto;
+    }
+    public function sumar_producto($request){
+        $detalle_producto = Detalle::where('cantidad',$request)->get();
+        $detalle_producto->pluck('cantidad');
+        //dd($detalle_producto);
+        return $detalle_producto;
+    }
 }
